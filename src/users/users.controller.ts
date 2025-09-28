@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { SignUpDto } from './dto/signup.dto';
 import { Request, Response } from 'express';
 import { LoginDto } from './dto/login.dto';
@@ -21,6 +21,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UserGuard } from 'src/guards/user.auth.guard';
 
+@ApiBearerAuth('access-token')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
