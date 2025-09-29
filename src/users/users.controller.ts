@@ -11,7 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { SignUpDto } from './dto/signup.dto';
 import { Request, Response } from 'express';
 import { LoginDto } from './dto/login.dto';
@@ -58,6 +63,7 @@ export class UsersController {
   /**************************UPDATE PROJECT********************************/
   @Post('update-project/:project_id')
   @ApiOperation({ summary: `Update Project` })
+  @ApiParam({ name: 'project_id', required: true })
   @UseGuards(UserGuard)
   async updateProject(
     @Req() req: Request,
@@ -72,6 +78,7 @@ export class UsersController {
   /**************************DELETE PROJECT********************************/
   @Delete('delete-project/:project_id')
   @ApiOperation({ summary: `Delete Project` })
+  @ApiParam({ name: 'project_id', required: true })
   @UseGuards(UserGuard)
   async deleteProject(
     @Req() req: Request,
@@ -98,6 +105,7 @@ export class UsersController {
   /*****************************UPDATE TASK********************************/
   @Post('update-task/:task_id')
   @ApiOperation({ summary: `Update Task` })
+  @ApiParam({ name: 'task_id', required: true })
   @UseGuards(UserGuard)
   async updateTask(
     @Req() req: Request,
@@ -112,6 +120,7 @@ export class UsersController {
   /*****************************DELETE TASK********************************/
   @Delete('delete-task/:task_id')
   @ApiOperation({ summary: `Delete Task` })
+  @ApiParam({ name: 'task_id', required: true })
   @UseGuards(UserGuard)
   async deleteTask(
     @Req() req: Request,
@@ -125,6 +134,7 @@ export class UsersController {
   /*****************************ASSIGN TASK********************************/
   @Post('assign-task/:task_id')
   @ApiOperation({ summary: `Assign Task` })
+  @ApiParam({ name: 'task_id', required: true })
   @UseGuards(UserGuard)
   async assignTask(
     @Req() req: Request,
@@ -139,6 +149,10 @@ export class UsersController {
   /*******************************MY TASKS*********************************/
   @Get('get-my-tasks')
   @ApiOperation({ summary: `Get my all tasks` })
+  @ApiQuery({ name: 'search', required: false })
+  @ApiQuery({ name: 'status', required: false })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
   @UseGuards(UserGuard)
   async getMyTasks(
     @Req() req: Request,
@@ -162,6 +176,10 @@ export class UsersController {
   /******************************MY PROJECTS*******************************/
   @Get('get-my-projects')
   @ApiOperation({ summary: `Get my all projects` })
+  @ApiQuery({ name: 'search', required: false })
+  @ApiQuery({ name: 'status', required: false })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
   @UseGuards(UserGuard)
   async getMyProjects(
     @Req() req: Request,
